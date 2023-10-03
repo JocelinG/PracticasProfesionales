@@ -1,3 +1,9 @@
-.medida_cm{
-    font-size: 40dp;
+.custom-summary {
+  font-weight: bold;
+  color: blue; /* Cambia el color según tus preferencias */
+}
+
+.custom-summary:hover {
+  cursor: pointer;
+  text-decoration: underline;
 }
