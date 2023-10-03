@@ -13,8 +13,10 @@
 
     
 
-    <!-- Bootstrap core CSS -->
-<link href="../assets/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Bootstrap CSS -->
+    <link href="../assets/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Mi_Estilo CSS -->
+    <link href="../assets/dist/css/mis_estilos.css" rel="stylesheet">
 
     <style>
       .bd-placeholder-img {
@@ -53,10 +55,8 @@
     <div class="row py-lg-5">
       <div class="col-lg-6 col-md-8 mx-auto">
         <h1 class="fw-light">FORMULARIO</h1>
-        <p class="lead text-muted">Por favor, complete el formulario de acuerdo a la nomenclatura de su contenido.</p>
-        <p>
-          <a href="index.html" class="btn btn-primary my-2">REGREASAR</a>
-        </p>
+        <p class="lead text-muted">Complete el formulario de acuerdo a la nomenclatura de su contenido.</p>
+       
         
       </div>
     </div>
@@ -69,11 +69,107 @@
         <section class="py-5 text-center container">
             <div class="row py-lg-5">
                 <div class="col-lg-6 col-md-8 mx-auto">
-                <a href="index.html" class="btn btn-primary my-2">GUARDAR CAMBIOS</a>
+
+                  <form id="form">
+                    <div class="mb-3">
+                      
+                      <select class="form-select" id="options" onchange="toggleFields()">
+
+                        <option value="opcCero">SELECCIONA UNA OPCION</option>
+                        <option value="general">GENERAL DEL CURSO</option>
+                        <option value="contact">INFORMACIÓN GENERAL</option>
+                        <option value="contact">UNIDAD__X</option>
+                      </select>
+                    </div>
+
+
+                    
+                    <details>
+                      <summary class="medida_cm">Some details</summary>
+                      <p>
+                        <div class="mb-3">
+                          <input type="text" class="form-control" id="name" placeholder="Nombre del curso">
+                        </div>
+                        <div class="mb-3">
+                          <input type="text" class="form-control" id="description" placeholder="Breve descripcion...">
+                        </div>
+
+                      </p>
+                    </details>
+
+                    <details>
+                      <summary class="mb-3">Some details</summary>
+                      <p>
+                        <div class="mb-3">
+                          <input type="text" class="form-control" id="name" placeholder="Nombre del curso">
+                        </div>
+                        <div class="mb-3">
+                          <input type="text" class="form-control" id="description" placeholder="Breve descripcion...">
+                        </div>
+
+                      </p>
+                    </details>
+
+                    <!-- OPCION-->
+                    <div id="opcionCFields" style="display: none;"></div>
+          
+                    <!-- GENERAL DEL CURSO -->
+                    <div id="generalFields" style="display: none;">
+                      <div class="mb-3">
+                        <input type="text" class="form-control" id="name" placeholder="Nombre del curso">
+                      </div>
+                      <div class="mb-3">
+                        <input type="text" class="form-control" id="description" placeholder="Breve descripcion...">
+                      </div>
+                    </div>
+          
+                    <!-- Fields for Contact -->
+                    <div id="contactFields" style="display: none;">
+                      <div class="mb-3">
+                        <input type="email" class="form-control" id="email" placeholder="Correo electrónico">
+                      </div>
+                      <div class="mb-3">
+                        <input type="text" class="form-control" id="phone" placeholder="Teléfono">
+                      </div>
+                    </div>
+          
+                    <button type="submit" class="btn btn-primary">GUARDAR CAMBIOS</button>
+                  </form>
+                </div>
+              </div>
+            </section>
+          </div>
+
+          
+          <script>
+            function toggleFields() {
+              var options = document.getElementById('options').value;
+          
+              
+              if (options === 'opcCero') {
+                document.getElementById('opcionCFields').style.display = 'block';
+                document.getElementById('generalFields').style.display = 'none';
+                document.getElementById('contactFields').style.display = 'none';
+              }
+              if (options === 'general') {
+                document.getElementById('opcionCFields').style.display = 'none';
+                document.getElementById('generalFields').style.display = 'block';
+                document.getElementById('contactFields').style.display = 'none';
+              } else if (options === 'contact') {
+                document.getElementById('opcionCFields').style.display = 'none';
+                document.getElementById('generalFields').style.display = 'none';
+                document.getElementById('contactFields').style.display = 'block';
+              }
+            }
+          
+          </script>
+
+
                 </div>
             </div>
         </section>
     </div>
+
 
 
 </main>
@@ -81,14 +177,14 @@
 <footer class="text-muted py-5">
   <div class="container">
     <p class="float-end mb-1">
-      <a href="#">Back to top</a>
+      <a href="index.html">Volver al Home</a>
     </p>
     
   </div>
 </footer>
 
 
-    <script src="../assets/dist/js/bootstrap.bundle.min.js"></script>
+    
 
       
   </body>
