@@ -1,9 +1,19 @@
 .custom-summary {
   font-weight: bold;
-  color: blue; /* Cambia el color según tus preferencias */
+  color: blue; 
+
 }
 
 .custom-summary:hover {
-  cursor: pointer;
-  text-decoration: underline;
+  color: yellowgreen;
+}
+
+.custom-summary2 {
+  font-weight: bold;
+  color: red; 
+
+}
+
+.custom-summary2:hover {
+  color: yellowgreen;
 }

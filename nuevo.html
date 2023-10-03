@@ -69,10 +69,10 @@
         <section class="py-5 text-center container">
             <div class="row py-lg-5">
                 <div class="col-lg-6 col-md-8 mx-auto">
-
                   <form id="form">
+
+
                     <div class="mb-3">
-                      
                       <select class="form-select" id="options" onchange="toggleFields()">
 
                         <option value="opcCero">SELECCIONA UNA OPCION</option>
@@ -84,7 +84,7 @@
 
 
                     <details>
-                      <summary class="custom-summary">Some details</summary>
+                      <summary class="custom-summary">NOMBRE DEL CURSO</summary>
                       <div class="mb-3">
                         <input type="text" class="form-control" id="name" placeholder="Nombre del curso">
                       </div>
@@ -93,30 +93,50 @@
                       </div>
                     </details>
 
-              
-
-                    <!-- OPCION-->
-                    <div id="opcionCFields" style="display: none;"></div>
-          
-                    <!-- GENERAL DEL CURSO -->
-                    <div id="generalFields" style="display: none;">
+                    <details>
+                      <summary class="custom-summary">INFORMACION GENERAL DEL CURSO</summary>
                       <div class="mb-3">
                         <input type="text" class="form-control" id="name" placeholder="Nombre del curso">
                       </div>
                       <div class="mb-3">
                         <input type="text" class="form-control" id="description" placeholder="Breve descripcion...">
                       </div>
-                    </div>
-          
-                    <!-- Fields for Contact -->
-                    <div id="contactFields" style="display: none;">
+                      <details>
+                        <summary class="custom-summary2">ANIDANDO DATOS</summary>
+                        <div class="mb-3">
+                          <input type="text" class="form-control" id="name" placeholder="Nombre del curso">
+                        </div>
+                        <div class="mb-3">
+                          <input type="text" class="form-control" id="description" placeholder="Breve descripcion...">
+                        </div>
+                      </details>
+                    </details>
+
+                    <details>
+                      <summary class="custom-summary">DIAGNOSTICO</summary>
                       <div class="mb-3">
-                        <input type="email" class="form-control" id="email" placeholder="Correo electrónico">
+                        <input type="text" class="form-control" id="name" placeholder="Nombre del curso">
                       </div>
                       <div class="mb-3">
-                        <input type="text" class="form-control" id="phone" placeholder="Teléfono">
+                        <input type="text" class="form-control" id="description" placeholder="Breve descripcion...">
                       </div>
-                    </div>
+                    </details>
+
+                    <details>
+                      <summary class="custom-summary">UNIDAD__X</summary>
+                      <div class="mb-3">
+                        <input type="text" class="form-control" id="name" placeholder="Nombre del curso">
+                      </div>
+                      <div class="mb-3">
+                        <input type="text" class="form-control" id="description" placeholder="Breve descripcion...">
+                      </div>
+                    </details>
+                    
+
+
+              
+
+                    
           
                     <button type="submit" class="btn btn-primary">GUARDAR CAMBIOS</button>
                   </form>
