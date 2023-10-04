@@ -1,19 +1,27 @@
 .custom-summary {
   font-weight: bold;
-  color: blue; 
+  color: #ffff; 
+  background-color: #4781CB ;
+  
 
 }
 
 .custom-summary:hover {
-  color: yellowgreen;
+  color: #D9E6F6;
 }
 
 .custom-summary2 {
   font-weight: bold;
-  color: red; 
+  color: #4781CB; 
+  border-color: #4781CB;
+  text-align: left;
 
 }
 
 .custom-summary2:hover {
   color: yellowgreen;
+}
+
+.alinear1 {
+  text-align: left;
 }

@@ -71,38 +71,23 @@
                 <div class="col-lg-6 col-md-8 mx-auto">
                   <form id="form">
 
-
+                    <!-- AQUI EMPIEZA LA ESTRUCTURA DEL CONTENIDO-->
+                    <!-- DATOS CORRESPONDIENTES AL APARTADO DE ASIGNATURA O CURSO-->
                     <div class="mb-3">
-                      <select class="form-select" id="options" onchange="toggleFields()">
-
-                        <option value="opcCero">SELECCIONA UNA OPCION</option>
-                        <option value="general">GENERAL DEL CURSO</option>
-                        <option value="contact">INFORMACIÓN GENERAL</option>
-                        <option value="contact">UNIDAD__X</option>
-                      </select>
+                      <input type="text" class="form-control" id="name" placeholder="Nombre del curso">
+                    </div>
+                    <div class="mb-3">
+                      <input type="text" class="form-control" id="description" placeholder="Breve descripcion...">
                     </div>
 
-
-                    <details>
-                      <summary class="custom-summary">NOMBRE DEL CURSO</summary>
+                    <!--SEGUNDO NODO DEL ARBOL-->
+                    <!--INFORMACION GENERAL DEL CURSO-->
+                  <details>
+                      <summary class="custom-summary form-control mb-3">INFORMACION GENERAL DEL CURSO</summary>
+                      <br><h5 class="fw-light alinear1">Presentación de la asignatura:  </h5><br>
                       <div class="mb-3">
-                        <input type="text" class="form-control" id="name" placeholder="Nombre del curso">
-                      </div>
-                      <div class="mb-3">
-                        <input type="text" class="form-control" id="description" placeholder="Breve descripcion...">
-                      </div>
-                    </details>
-
-                    <details>
-                      <summary class="custom-summary">INFORMACION GENERAL DEL CURSO</summary>
-                      <div class="mb-3">
-                        <input type="text" class="form-control" id="name" placeholder="Nombre del curso">
-                      </div>
-                      <div class="mb-3">
-                        <input type="text" class="form-control" id="description" placeholder="Breve descripcion...">
-                      </div>
                       <details>
-                        <summary class="custom-summary2">ANIDANDO DATOS</summary>
+                        <summary class="custom-summary2 mb-3">INTRODUCCIÓN</summary>
                         <div class="mb-3">
                           <input type="text" class="form-control" id="name" placeholder="Nombre del curso">
                         </div>
@@ -110,10 +95,68 @@
                           <input type="text" class="form-control" id="description" placeholder="Breve descripcion...">
                         </div>
                       </details>
-                    </details>
+                      <details>
+                        <summary class="custom-summary2 mb-3">PROPOSITO</summary>
+                        <div class="mb-3">
+                          <input type="text" class="form-control" id="name" placeholder="Nombre del curso">
+                        </div>
+                        <div class="mb-3">
+                          <input type="text" class="form-control" id="description" placeholder="Breve descripcion...">
+                        </div>
+                      </details>
+                      <details>
+                        <summary class="custom-summary2 mb-3">CONOCIMIENTOS O COMPETENCIAS PREVIOS</summary>
+                        <div class="mb-3">
+                          <input type="text" class="form-control" id="name" placeholder="Nombre del curso">
+                        </div>
+                        <div class="mb-3">
+                          <input type="text" class="form-control" id="description" placeholder="Breve descripcion...">
+                        </div>
+                      </details>
+                      <details>
+                        <summary class="custom-summary2 mb-3">DINAMICAS Y POLITICAS PARA LA EVALUACION</summary>
+                        <div class="mb-3">
+                          <input type="text" class="form-control" id="name" placeholder="Nombre del curso">
+                        </div>
+                        <div class="mb-3">
+                          <input type="text" class="form-control" id="description" placeholder="Breve descripcion...">
+                        </div>
+                      </details>
+                      <details>
+                        <summary class="custom-summary2 mb-3">CRONOGRAMA DE TRABAJO</summary>
+                        <div class="mb-3">
+                          <input type="text" class="form-control" id="name" placeholder="Nombre del curso">
+                        </div>
+                        <div class="mb-3">
+                          <input type="text" class="form-control" id="description" placeholder="Breve descripcion...">
+                        </div>
+                      </details>
+                      <details>
+                        <summary class="custom-summary2 mb-3">UBICACION CURRICULAR</summary>
+                        <div class="mb-3">
+                          <input type="text" class="form-control" id="name" placeholder="Nombre del curso">
+                        </div>
+                        <div class="mb-3">
+                          <input type="text" class="form-control" id="description" placeholder="Breve descripcion...">
+                        </div>
+                      </details>
+                      <details>
+                        <summary class="custom-summary2 mb-3">FUENTES DE INFORMACION</summary>
+                        <div class="mb-3">
+                          <input type="text" class="form-control" id="name" placeholder="Nombre del curso">
+                        </div>
+                        <div class="mb-3">
+                          <input type="text" class="form-control" id="description" placeholder="Breve descripcion...">
+                        </div>
+                      </details>   
+                  </details>
 
+
+                    <!--SEGUNDO NODO DEL ARBOL-->
+                    <!--DIAGNOSTICO-->
+                    
                     <details>
-                      <summary class="custom-summary">DIAGNOSTICO</summary>
+                      <summary class="custom-summary form-control mb-3">DIAGNOSTICO</summary>
                       <div class="mb-3">
                         <input type="text" class="form-control" id="name" placeholder="Nombre del curso">
                       </div>
@@ -123,7 +166,7 @@
                     </details>
 
                     <details>
-                      <summary class="custom-summary">UNIDAD__X</summary>
+                      <summary class="custom-summary form-control mb-3">UNIDAD__X</summary>
                       <div class="mb-3">
                         <input type="text" class="form-control" id="name" placeholder="Nombre del curso">
                       </div>
@@ -137,7 +180,7 @@
               
 
                     
-          
+                    <br>
                     <button type="submit" class="btn btn-primary">GUARDAR CAMBIOS</button>
                   </form>
                 </div>
