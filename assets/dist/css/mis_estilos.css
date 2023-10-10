@@ -41,4 +41,37 @@
 .alinear1 {
   text-align: left;
 }
+ 
+.opciones {
+  width: 720px;
+  border: 2px hsla(0, 0%, 59%, 0.93) solid;
+  background-color: #bdbfc0;
+ 
+  }
+
+  #textBox {
+  width: 700px;
+  height: 400px;
+  border: 2px hsla(0, 3%, 64%, 0.93) solid; 
+  padding: 10px;
+  overflow: scroll;
+  background-color: #FAFAFA;
+  }
+
+  .my-button {
+          width: 100px;
+          height: 25px;
+          padding: 5px 5px;
+          background-color: #bdbfc0;
+          color: black;
+          border: none;
+          border-radius: 3px;
+          cursor: pointer;
+          }
+          .my-button:hover {
+          background-color: #4781CB;
+          color: white;
+          }
+          .my-button:active {
+          background-color: #bdbfc0;}
 
