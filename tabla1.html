@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Pagina 01</title>
+
+    <!-- Bootstrap core CSS -->
+    <link rel="canonical" href="https://getbootstrap.com/docs/5.0/examples/album/">
+    <link href="../assets/dist/css/bootstrap.min.css" rel="stylesheet">
+
+
+    <style>
+      .table > tbody > tr:hover {
+        background-color: #F2F2F2;
+        cursor: pointer;
+        }
+    </style>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
+    <script>
+
+        'use strict';
+        
+        var app = angular.module('TablaDemo', []);
+        app.controller('TablaCtrl', ['$scope', function($scope) {
+          $scope.lista = [{
+            nombres: 'Jocelin',
+            apellidos: 'Sanluis',
+            email: 'JocelinSanluis@gmail.com'
+          }, {
+            nombres: 'Giselle',
+            apellidos: 'López',
+            email: 'GiselleLopez@gmail.com'
+          }];
+
+        
+        //   $scope.eliminar = function(row) {
+        //     if (confirm("¿Seguro que desea eliminar?")) {
+        //       $scope.lista.splice(row, 1);
+        //     }
+        //   };
+
+
+            $scope.eliminar = function(index) {
+            if (confirm("¿Seguro que desea eliminar?")) {
+            $scope.lista.splice(index, 1);
+            }
+            };
+        
+          $scope.agregar = function() {
+            $scope.lista.push({
+              nombres: '',
+              apellidos: '',
+              email: ''
+            })
+          };
+        
+          $scope.recuperarValores = function() {
+            console.log($scope.lista);
+            $("#JSON").text(JSON.stringify($scope.lista));
+          };
+        }]);
+        
+        app.directive('editableTd', [function() {
+          return {
+            restrict: 'A',
+            link: function(scope, element, attrs) {
+              element.css("cursor", "pointer");
+              element.attr('contenteditable', 'true');
+        
+              element.bind('blur keyup change', function() {
+                scope.lista[attrs.row][attrs.field] = element.text();
+              });
+        
+              element.bind('click', function() {
+                document.execCommand('selectAll', false, null)
+              });
+            }
+          };
+        }]);
+    </script>
+    
+  </head>
+
+
+  
+  <body ng-cloak ng-app="TablaDemo">
+    
+  <header>
+    <div class="navbar navbar-dark bg-dark shadow-sm">
+      <div class="container">
+        <a href="#" class="navbar-brand d-flex align-items-center">
+          <strong>BUAP</strong>
+        </a>
+      </div>
+    </div>
+  </header>
+
+    <br>
+    <div class="container" ng-controller="TablaCtrl">
+      <h1>Tabla con contenido editable</h1>
+      <br>
+      <div class="panel panel-default">
+        <div class="panel-body">
+          <table class="table">
+            <thead>
+              <tr>
+                <th>#</th>
+                <th>Nombres</th>
+                <th>Apellidos</th>
+                <th>Correo Electrónico</th>
+                <th></th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr ng-repeat="item in lista">
+                <td style="cursor: not-allowed;">
+                  {{$index + 1}}
+                </td>
+                <td editable-td row="{{$index}}" field="nombres">
+                  {{item.nombres}}
+                </td>
+                <td editable-td row="{{$index}}" field="apellidos">
+                  {{item.apellidos}}
+                </td>
+                <td editable-td row="{{$index}}" field="email">
+                  {{item.email}}
+                </td>
+                <td>
+                  <span class="glyphicon glyphicon-trash" style="cursor: pointer;" ng-click='eliminar($index)'></span>
+                  
+                </td>
+              </tr>
+            </tbody>
+          </table>
+          <div class="btn-group">
+            <button class="btn btn-default" ng-click='agregar()'>
+              <span class="glyphicon glyphicon-plus"></span>
+            </button>
+            <button type="button" class="btn btn-default" ng-click='recuperarValores()'>Recuperar Valores</button>
+          </div>
+          <br>
+          <br>
+          <div id='JSON'>
+        </div>
+      </div>
+    </div>
+  
+   
+<footer class="text-muted py-5">
+  <div class="container">
+    <p class="float-end mb-1">
+      <a href="#"> Ir arriba</a>
+    </p>
+    
+  </div>
+</footer>
+
+
+    
+
+      
+  </body>
+</html>
+
+
+
