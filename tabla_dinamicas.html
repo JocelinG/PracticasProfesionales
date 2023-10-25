@@ -19,6 +19,7 @@
         .btn1{
           border-color: rgb(184, 186, 198);
           border-radius: 3px;
+        
           
         }
       </style>
@@ -28,47 +29,45 @@
 
       
       <script>
-
-          'use strict';
           
-          var app = angular.module('TablaDemo', []);
+          //Creando la tabla Inicial
+          var app = angular.module('Tabla_Dinamica', []);
           app.controller('TablaCtrl', ['$scope', function($scope) {
             $scope.lista = [{
-              nombres: 'Jocelin',
-              apellidos: 'Sanluis',
-              email: 'JocelinSanluis@gmail.com'
-            }, {
-              nombres: 'Giselle',
-              apellidos: 'López',
-              email: 'GiselleLopez@gmail.com'
-            }];
+              Actividad: 'Administración de la producción',
+              Puntaje: '0',
+            },];
 
 
-              $scope.eliminar = function(index) {
+            //Eliminar
+            $scope.eliminar = function(index) {
                 if (confirm("¿Seguro que desea eliminar?")) {
                 $scope.lista.splice(index, 1);
                 }
                 };
 
-          
+            //Agregar
             $scope.agregar = function() {
                 $scope.lista.push({
-                nombres: '',
-                apellidos: '',
-                email: ''
+                Actividad: '',
+                Puntaje: '',
                 })
                 };
 
-          
+            //Recuperar datos en un JSON
             $scope.recuperarValores = function() {
                 console.log($scope.lista);
                 $("#JSON").text(JSON.stringify($scope.lista));
                 };
-                }]);
+
+            }]);
+
+            //Suma de puntajes
+            $scope.suamaPuntaje = function () {};
 
           
+            //Permite editar los campos    
             app.directive('editableTd', [function() {
-                
                 return {
                   restrict: 'A',
                   link: function(scope, element, attrs) {
@@ -89,12 +88,13 @@
                 }]);
 
       </script>
-      
     </head>
 
 
+
+
   
-  <body ng-cloak ng-app="TablaDemo">
+  <body ng-cloak ng-app="Tabla_Dinamica">
     
     <header>
       <div class="navbar navbar-dark bg-dark shadow-sm">
@@ -115,36 +115,60 @@
         <div class="panel panel-default">
           <div class="panel-body">
 
+            
             <table class="table">
-              <thead>
-                <tr>
-                  <th>#</th>
-                  <th>Actividad</th>
-                  <th>Apellidos</th>
-                  <th>Correo Electrónico</th>
-                  <th></th>
-                </tr>
-              </thead>
+
+                <thead>
+                  <tr>
+                    <th>#</th>
+                    <th>Actividad</th>
+                    <th>Puntaje</th>
+                    <th></th>
+                  </tr>
+                </thead>
+
               <tbody>
                 <tr ng-repeat="item in lista">
                   <td style="cursor: not-allowed;">
-                    {{$index + 1}}
+                    A{{$index + 1}}
                   </td>
-                  <td editable-td row="{{$index}}" field="nombres">
-                    {{item.nombres}}
+                  <td editable-td row="{{$index}}" field="Actividad">
+                    {{item.Actividad}}
                   </td>
-                  <td editable-td row="{{$index}}" field="apellidos">
-                    {{item.apellidos}}
+                  <td editable-td row="{{$index}}" field="Puntaje">
+                    {{item.Puntaje}}
                   </td>
-                  <td editable-td row="{{$index}}" field="email">
-                    {{item.email}}
+                  <td style="cursor: not-allowed;">
+                    {{}}%
                   </td>
                   <td>
                     <button class="btn1" style="cursor: pointer;" ng-click='eliminar($index)'>Borrar</button>
                   </td>
                 </tr>
+
+                <tr>
+                  <td style="cursor: not-allowed;">
+                    {{}}
+                  </td>
+                  <td style="cursor: not-allowed;">
+                    TOTAL{{}}
+                  </td>
+                  <td style="cursor: not-allowed;">
+                    100{{}}
+                  </td>
+                  <td style="cursor: not-allowed;">
+                    {{}}%
+                  </td>
+                  <td>
+                    <button class="btn1" style="cursor: pointer;" ng-click='eliminar($index)'>Borrar</button>
+                  </td>
+                </tr>
+
               </tbody>
+             
             </table>
+
+
 
             <div class="">
               <button class="btn1" ng-click='agregar()'> Agregar fila</button>
