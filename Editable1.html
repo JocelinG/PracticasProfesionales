@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Editor texto</title>
+
+      <!-- Bootstrap core CSS -->
+      <link rel="canonical" href="https://getbootstrap.com/docs/5.0/examples/album/">
+      <link href="../assets/dist/css/bootstrap.min.css" rel="stylesheet">
+
+
+      <style>
+
+        .btn1{
+          border-color: rgb(184, 186, 198);
+          border-radius: 3px; 
+          }
+
+        .Cajatxt {
+          width: 700px;
+          height: 400px;
+          border: 2px hsla(0, 100%, 1%, 0.61) solid; 
+          padding: 10px;
+          overflow: scroll;
+          }
+      </style>
+
+      <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
+      <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+      
+      <script>
+
+          'use strict';
+
+          function formatoFuente(sCmd, sValue) {
+            document.execCommand(sCmd, false, sValue);
+            }
+                                    
+          function processFiles(files) {
+            var file = files[0];
+            var reader = new FileReader();
+                        
+            reader.onload = function (e) {
+            var output = document.getElementById("textBox");
+            output.innerHTML = e.target.result;
+            };
+                        
+            reader.readAsText(file);
+            }
+
+      </script>
+      
+    </head>
+
+
+  
+  <body ng-cloak ng-app="">
+    <header>
+      <div class="navbar navbar-dark bg-dark shadow-sm">
+        <div class="container">
+          <a href="#" class="navbar-brand d-flex align-items-center">
+            <strong>BUAP</strong>
+          </a>
+        </div>
+      </div>
+    </header>
+
+    <br>
+      
+      
+      <div class="container" ng-controller="TablaCtrl">
+      <br>
+      
+            <section class="opciones">
+              <button  class="btn1" onclick="document.execCommand('bold',false,'');">Negrita</button>
+              <button  class="btn1" onclick="document.execCommand('italic',false,'');">Itálica</button>
+              <button  class="btn1" onclick="document.execCommand('insertUnorderedlist',false,'');">Bolitas</button>
+              <button  class="btn1" onclick="document.execCommand('insertorderedlist',false,'');">Lista</button>
+      
+              <select class="btn2" onchange="formatoFuente('formatblock',this[this.selectedIndex].value);this.selectedIndex=0;">
+                <option selected>Formato</option>
+                <option value="h2">Subtítulo 01</option>
+                <option value="h3">Subtítulo 02</option>
+                <option value="P">Texto general </option>
+                </select>
+            </section>
+      
+      
+              <div id="textBox" contenteditable="true" class="Cajatxt">
+              <p>Escribir aquí...</p> 
+              </div>
+
+      </div>
+  
+   
+      <footer class="text-muted py-5">
+        <div class="container">
+          <p class="float-end mb-1">
+            <a href="#"> Ir arriba</a>
+          </p>
+        </div>
+      </footer>
+
+
+    
+
+      
+  </body>
+</html>
+
+
+
