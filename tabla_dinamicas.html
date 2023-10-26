@@ -19,15 +19,27 @@
         .btn1{
           border-color: rgb(184, 186, 198);
           border-radius: 3px;
-        
-          
+          }
+
+        .btn2{
+          background-color: rgba(0, 0, 0, 0.695);
+          color: white;
         }
+
+        .red-text {
+        color: red;
+        }
+        .black-text {
+        color: black;
+        }
+   
       </style>
+
+
+
 
       <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
       <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-
-      
       <script>
           
           //Creando la tabla Inicial
@@ -60,11 +72,31 @@
                 $("#JSON").text(JSON.stringify($scope.lista));
                 };
 
-            }]);
+        
 
             //Suma de puntajes
-            $scope.suamaPuntaje = function () {};
+            $scope.sumav = function () {
+              var suma = 0;
 
+              for (var i = 0; i < $scope.lista.length; i++) {
+                  suma += parseFloat($scope.lista[i].Puntaje);
+                  }
+
+                  if (suma > 100) {
+                        $scope.mensaje = "Excedió los 100 puntos";
+                        $scope.mensajeClass = "red-text";  
+                    } else {
+                      $scope.mensaje = ""; 
+                      $scope.mensajeClass = "black-text";  
+                      return suma;
+                    }
+
+                   
+
+            };
+
+
+          }]);
           
             //Permite editar los campos    
             app.directive('editableTd', [function() {
@@ -124,6 +156,7 @@
                     <th>Actividad</th>
                     <th>Puntaje</th>
                     <th></th>
+                    <th></th>
                   </tr>
                 </thead>
 
@@ -146,27 +179,28 @@
                   </td>
                 </tr>
 
-                <tr>
-                  <td style="cursor: not-allowed;">
-                    {{}}
-                  </td>
-                  <td style="cursor: not-allowed;">
-                    TOTAL{{}}
-                  </td>
-                  <td style="cursor: not-allowed;">
-                    100{{}}
-                  </td>
-                  <td style="cursor: not-allowed;">
-                    {{}}%
-                  </td>
-                  <td>
-                    <button class="btn1" style="cursor: pointer;" ng-click='eliminar($index)'>Borrar</button>
-                  </td>
-                </tr>
+                <thead>
+                  <tr>
+                    <th style="cursor: not-allowed;">
+                      {{}}
+                    </th>
+                    <th style="cursor: not-allowed;">
+                      TOTAL{{}}
+                    </th>
+                    <th style="cursor: not-allowed;" ng-class="mensajeClass">
+                    {{sumav()}}  {{mensaje}}
+                    </th>
+                    <th style="cursor: not-allowed;">
+                      {{}}%
+                    </th>
+                    <th>
+                      <button class="btn1 btn2" style="cursor: pointer;" ng-click='sumav($index)'>Sumar</button>
+                    </th>
+                  </tr>
+              </thead>
 
-              </tbody>
-             
-            </table>
+            </tbody>
+          </table>
 
 
 
