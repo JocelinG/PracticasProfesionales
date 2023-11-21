@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1">
+      <title>Tabla pruebas</title>
+
+    
+      <link rel="canonical" href="https://getbootstrap.com/docs/5.0/examples/album/">
+      <link href="../assets/dist/css/bootstrap.min.css" rel="stylesheet">
+
+
+      <style>
+        .table > tbody > tr:hover {
+          background-color: #F2F2F2;
+          cursor: pointer;
+          }
+
+        .btn1{
+          border-color: rgb(184, 186, 198);
+          border-radius: 3px;
+          }
+
+        .btn2{
+          background-color: rgba(0, 0, 0, 0.695);
+          color: white;
+        }
+
+        .red-text {
+        color: red;
+        }
+        .black-text {
+        color: black;
+        }
+
+        /* Las clases P, son utilizadas para identificar los distintos elementos y sus limites en base a su olor de fondo, 
+           deberán ser eliminados al terminar la practica*/
+
+        .p1{
+          background-color:rgb(174, 223, 75);
+        }
+        .p2{
+          background-color:rgb(229, 212, 146);
+        }
+        .p3{
+          color:rgb(255, 0, 0);
+        }
+        .p4{
+          background-color:rgb(84, 207, 232);
+        }
+        .p5{
+          color:rgb(255, 225, 0);
+        }
+        .p6{
+          background-color:rgb(232, 84, 220);
+        }
+   
+      </style> 
+
+
+
+
+      <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
+      <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+      <script>
+          
+        //Creando la tabla Inicial
+        var app = angular.module('Tabla_Dinamica', []);
+
+
+        app.controller('TablaCtrl', ['$scope', function($scope) {
+          $scope.lista1 = [{
+            Actividad: 'Administración de la producción',
+          },]
+          
+
+          //Eliminar
+          $scope.eliminar = function(index) {
+              if (confirm("¿Seguro que desea eliminar?")) {
+              $scope.lista1.splice(index, 1);
+              }
+              };
+
+          //Agregar fila
+          $scope.agregarFila = function() {
+              $scope.lista1.push({
+              Actividad: '',
+              })
+              };
+
+          //Agregar Columna
+          $scope.agregarColumna = function() {
+            $scope.lista2.push({
+              Semana:'',
+          })
+          };
+
+
+          //Recuperar datos en un JSON
+          $scope.recuperarValores = function() {
+            console.log($scope.lista);
+            console.log($scope.semanas);
+            $("#JSON").text(JSON.stringify({ lista: $scope.lista, semanas: $scope.semanas }));
+          };
+
+        }]);
+        
+          //Permite editar los campos    
+          app.directive('editableTd', [function() {
+              return {
+                restrict: 'A',
+                link: function(scope, element, attrs) {
+                  
+                    element.css("cursor", "pointer");
+                    element.attr('contenteditable', 'true');
+              
+                    element.bind('blur keyup change', function() {
+                    scope.lista[attrs.row][attrs.field] = element.text();
+                    });
+              
+                    element.bind('click', function() {
+                    document.execCommand('selectAll', false, null)
+                    });
+                    }
+                    };
+                    
+              }]);
+
+    </script>
+    </head>
+
+
+
+
+  
+   
+    <body ng-cloak ng-app="Tabla_Dinamica">
+    
+      <header>
+        <div class="navbar navbar-dark bg-dark shadow-sm">
+          <div class="container">
+            <a href="#" class="navbar-brand d-flex align-items-center">
+              <strong>BUAP</strong>
+            </a>
+          </div>
+        </div>
+      </header><br>
+        
+        
+        <div class="container" ng-controller="TablaCtrl">
+        <br>
+  
+          <div class="panel panel-default">
+            <div class="panel-body">
+  
+              
+                  <table class="table">
+  
+                      <thead class="p1">
+                  
+                        <tr class="p2">
+                          <th class="p3">pruebas</th>
+                          <th class="p0">Semanas</th>
+                          <th class="p3">pruebas</th>
+                          <th class="p3">pruebas</th>
+                        </tr>
+  
+                        <tr>
+                          <th class="p0">Actividades</th>
+                          <th class="p0">semana 1</th>
+                          <th class="p0">semana 2</th>
+                          <th class="p3">pruebas</th>
+  
+                        </tr>
+                      </thead>
+  
+  
+  
+                      <tbody class="p4">
+                        <tr ng-repeat="item in lista1">
+                          
+                          <td editable-td row="{{$index}}" field="Actividad">{{item.Actividad}}</td>
+                          <td class="p5">pruebas</td>
+                          <td class="p5">pruebas</td>
+                          <td><button class="btn1" style="cursor: pointer;" ng-click='eliminar($index)'>Borrar</button></td>
+  
+                        </tr>
+                      </tbody>
+  
+                  </table>
+  
+  
+  
+              <div class="p6">
+                <button class="btn1" ng-click='agregarFila()'>    Agregar fila</button>
+                <button class="btn1" ng-click='agregarColumna()'> Agregar Columna</button>
+              </div>
+  
+              <br>
+              <br>
+  
+              <div id='JSON'>
+              </div>
+            </div>
+          </div>
+        </div>
+
+    </body>
+</html>
+
+
+      <!-- <!DOCTYPE html>
+      <html>
+      <head>
+          <style>
+              td {width:50px; height:30px;border:1px solid;}
+          </style>
+      </head>
+      <body>
+       
+          <table>
+              <tr>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+              </tr>
+              <tr>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+              </tr>
+              <tr>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+              </tr>
+          </table>
+       
+          <script>
+              [...document.getElementsByTagName("td")].forEach(el => {
+                  el.addEventListener("click", setColor);
+              });
+       
+              function setColor() {
+                  if (this.style.backgroundColor === "gray") {
+                      this.style.backgroundColor = "inherit";
+                  } else {
+                      this.style.backgroundColor = "gray";
+                  }
+              }
+          </script>
+      </body>
+      </html>  -->
+      
