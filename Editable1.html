@@ -1,176 +1,182 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-      <meta charset="utf-8">
-      <meta name="viewport" content="width=device-width, initial-scale=1">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Editor texto</title>
-
-      <!-- Bootstrap core CSS -->
-      <link rel="canonical" href="https://getbootstrap.com/docs/5.0/examples/album/">
-      <link href="../assets/dist/css/bootstrap.min.css" rel="stylesheet">
-
-
-      <style>
-
-          
-          .btn1{
-            border-radius: 3px; 
+    <!-- Bootstrap core CSS -->
+    <link rel="canonical" href="https://getbootstrap.com/docs/5.0/examples/album/">
+    <link href="../assets/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        .btn1 {
+            border-radius: 3px;
             transform: translate(-50%, -50%);
             width: 5em;
             height: 2em;
             text-align: center;
-            }
+        }
 
-          .formatos{
+        .formatos {
             height: 2em;
             width: 10em;
+        }
 
-            }
-
-          .margen1{
+        .margen1 {
             position: absolute;
-            top : 27%;
+            top: 27%;
             left: 45%;
             transform: translate(-50%, -50%);
+        }
+
+        @media (max-width:2000px) {
+            .Cajatxt {
+                width: 1000px;
+                height: 400px;
+                border: 2px hsla(0, 100%, 1%, 0.61) solid;
+                padding: 10px;
+                overflow-y: scroll;
+                position: absolute;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
             }
 
-          @media (max-width:2000px){
-          .Cajatxt {
-            width: 1000px;
-            height: 400px;
-            border: 2px hsla(0, 100%, 1%, 0.61) solid;
-            padding: 10px;
-            overflow-y: scroll;
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-          }
-
-          .margen2{
-            margin-top:-0.5em;
-            margin-left:14.3em;
+            .margen2 {
+                margin-top: -0.5em;
+                margin-left: 14.3em;
             }
-          }
+        }
 
-          @media (max-width:1100px){
-          .Cajatxt {
-            width: 700px;
-            height: 400px;
-            border: 2px hsla(0, 100%, 1%, 0.61) solid; 
-            padding: 10px;
-            overflow: scroll;
-          }
-          }
-
-          @media (max-width:800px){
-          .Cajatxt {
-            width: 400px;
-            height: 400px;
-            border: 2px hsla(0, 100%, 1%, 0.61) solid; 
-            padding: 10px;
-            overflow: scroll;
-          }
-          .margen2{
-            margin-top:1em;
-            margin-left:-2em;
-            }
-          
-          }
-
-          @media (max-width:500px){
-          .Cajatxt {
-            width: 400px;
-            height: 400px;
-            border: 2px hsla(0, 100%, 1%, 0.61) solid; 
-            padding: 10px;
-            overflow: scroll;
-          }
-          .margen2{
-            margin-top:1em;
-            margin-left:0.010em;
-            }
-          
-          }
-
-      </style>
-
-      <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
-      <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-
+        @media (max-width:1100px){
+                .Cajatxt {
+                  width: 700px;
+                  height: 400px;
+                  border: 2px hsla(0, 100%, 1%, 0.61) solid; 
+                  padding: 10px;
+                  overflow: scroll;
+                }
+                }
       
-      <script>
+        @media (max-width:700px){
+                .Cajatxt {
+                  width: 400px;
+                  height: 400px;
+                  border: 2px hsla(0, 100%, 1%, 0.61) solid; 
+                  padding: 10px;
+                  overflow: scroll;
+                  
+                }
 
-          'use strict';
-
-          function formatoFuente(sCmd, sValue) {
-            document.execCommand(sCmd, false, sValue);
+                .margen1 {
+                position: absolute;
+                top: 23%;
+                left: 45%;
+                transform: translate(-50%, -50%);
             }
-                                    
-          function processFiles(files) {
-            var file = files[0];
-            var reader = new FileReader();
-                        
-            reader.onload = function (e) {
-            var output = document.getElementById("textBox");
-            output.innerHTML = e.target.result;
-            };
-                        
-            reader.readAsText(file);
-            }
-
-      </script>
+                .margen2{
+                  margin-top:2em;
+                  margin-left:-6.7em;
+                  }
+                
+                }
       
-    </head>
+        @media (max-width:600px){
+                .Cajatxt {
+                  width: 400px;
+                  height: 400px;
+                  border: 2px hsla(0, 100%, 1%, 0.61) solid; 
+                  padding: 10px;
+                  overflow: scroll;
+                }
+                .margen2{
+                  margin-top:1em;
+                  margin-left:0.010em;
+                  }
+                
+                }
 
 
-  
-  <body ng-cloak ng-app="">
-    <header>
-      <div class="navbar navbar-dark bg-dark shadow-sm">
-        <div class="container">
-          <a href="#" class="navbar-brand d-flex align-items-center">
-            <strong>BUAP</strong>
-          </a>
-        </div>
-      </div>
-    </header>
+    </style>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+
+    <body ng-cloak ng-app="">
+      <header>
+          <div class="navbar navbar-dark bg-dark shadow-sm">
+              <div class="container">
+                  <a href="#" class="navbar-brand d-flex align-items-center">
+                      <strong>BUAP</strong>
+                  </a>
+              </div>
+          </div>
+      </header>
 
     <br>
-      
-      
       <div class="container" ng-controller="TablaCtrl">
-      <br>
-      
-            <section class="opciones margen1">
-              <button  class="btn1" onclick="document.execCommand('bold',false,'');">Negrita</button>
-              <button  class="btn1" onclick="document.execCommand('italic',false,'');">Itálica</button>
-              <button  class="btn1" onclick="document.execCommand('insertUnorderedlist',false,'');">Viñetas</button>
-              <button  class="btn1" onclick="document.execCommand('insertorderedlist',false,'');">Lista</button>
-            
-                <select class="formatos margen2 margen1" onchange="formatoFuente('formatblock',this[this.selectedIndex].value);this.selectedIndex=0;">
-                <option selected>Formato</option>
-                <option value="h2">Subtítulo 01</option>
-                <option value="h3">Subtítulo 02</option>
-                <option value="P">Texto general </option>
-                </select>
-            </section>  
-           
-      
-              <div id="textBox" contenteditable="true" class="Cajatxt">
-              <p>Escribir aquí...</p> 
-              </div>
+    <br>
+
+    <section class="opciones margen1">
+        <button class="btn1" onclick="toggleBold()">Negrita</button>
+        <button class="btn1" onclick="toggleItalic()">Itálica</button>
+        <button class="btn1" onclick="toggleList('ul')">Viñetas</button>
+        <button class="btn1" onclick="toggleList('ol')">Lista</button>
+
+        <select class="formatos margen2 margen1" onchange="applyFormat(this.value)">
+            <option selected>Formato</option>
+            <option value="h2">Subtítulo 01</option>
+            <option value="h3">Subtítulo 02</option>
+            <option value="P">Texto general </option>
+        </select>
+    </section>
+
+    <div id="textBox" contenteditable="true" class="Cajatxt">
+        <p>Escribir aquí...</p>
+    </div>
       </div>
-  
-   
-      <footer class="text-muted py-5">
+
+    <footer class="text-muted py-5">
         <div class="container">
-          <p class="float-end mb-1">
-          </p>
+            <p class="float-end mb-1">
+            </p>
         </div>
-      </footer>
+    </footer>
 
 
-    
+    <script>
+      //Eliminado formato de pegado
+      document.getElementById('textBox').addEventListener('paste', function(e) {
+          //Previene el comportamiento predeterminado del pegado
+          e.preventDefault();
+          //Obtiene el texto pegado sin formato
+          var text = (e.originalEvent || e).clipboardData.getData('text/plain');
+          //Limpia los formatos no deseados
+          text = text.replace(/<[^>]*>/g, '');
+          //Pega un texto limpio
+          document.execCommand('insertText', false, text);
+      });
 
+      function toggleBold() {
+          document.execCommand('bold', false, null);
+      }
+
+      function toggleItalic() {
+          document.execCommand('italic', false, null);
+      }
+
+      function toggleList(type) {
+          if (type === 'ul') {
+              document.execCommand('insertUnorderedList', false, null);
+          } else if (type === 'ol') {
+              document.execCommand('insertOrderedList', false, null);
+          }
+      }
+
+      function applyFormat(format) {
+          document.execCommand('formatblock', false, format);
+      }
+    </script>∫
+    </body>
+
+</html>
 

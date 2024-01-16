@@ -19,6 +19,7 @@
         .btn1{
           border-color: rgb(184, 186, 198);
           border-radius: 3px;
+
           }
 
         .btn2{
@@ -33,7 +34,7 @@
         color: black;
         }
 
-        /* Las clases P, son utilizadas para identificar los distintos elementos y sus limites en base a su olor de fondo, 
+        /* Las clases P, son utilizadas para identificar los distintos elementos y sus limites en base a su color de fondo, 
            deberán ser eliminados al terminar la practica*/
 
         .p1{
@@ -54,10 +55,13 @@
         .p6{
           background-color:rgb(232, 84, 220);
         }
+        .t1{
+          text-align: center;
+        }
    
       </style> 
 
-
+    
 
 
       <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
@@ -156,20 +160,19 @@
               
                   <table class="table">
   
-                      <thead class="p1">
+                      <thead>
                   
-                        <tr class="p2">
-                          <th class="p3">pruebas</th>
-                          <th class="p0">Semanas</th>
-                          <th class="p3">pruebas</th>
-                          <th class="p3">pruebas</th>
+                        <tr>
+                        <th></th>
+                        <td colspan="3" class="">Semanas</td>
                         </tr>
   
                         <tr>
                           <th class="p0">Actividades</th>
                           <th class="p0">semana 1</th>
                           <th class="p0">semana 2</th>
-                          <th class="p3">pruebas</th>
+                          <th class="p3">PRUEBAS</th>
+                          
   
                         </tr>
                       </thead>
@@ -180,12 +183,14 @@
                         <tr ng-repeat="item in lista1">
                           
                           <td editable-td row="{{$index}}" field="Actividad">{{item.Actividad}}</td>
-                          <td class="p5">pruebas</td>
-                          <td class="p5">pruebas</td>
+                          <td class="p5">PRUEBAS</td>
+                          <td class="p5">PRUEBAS</td>
                           <td><button class="btn1" style="cursor: pointer;" ng-click='eliminar($index)'>Borrar</button></td>
   
                         </tr>
                       </tbody>
+
+                      
   
                   </table>
   
@@ -208,7 +213,7 @@
     </body>
 </html>
 
-
+      
       <!-- <!DOCTYPE html>
       <html>
       <head>
