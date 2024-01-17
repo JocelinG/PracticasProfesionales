@@ -3,9 +3,9 @@
     <head>
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width, initial-scale=1">
-      <title>Tabla pruebas</title>
+      <title>Dinamicas</title>
 
-    
+      <!-- Bootstrap core CSS -->
       <link rel="canonical" href="https://getbootstrap.com/docs/5.0/examples/album/">
       <link href="../assets/dist/css/bootstrap.min.css" rel="stylesheet">
 
@@ -19,202 +19,211 @@
         .btn1{
           border-color: rgb(184, 186, 198);
           border-radius: 3px;
-
           }
 
         .btn2{
           background-color: rgba(0, 0, 0, 0.695);
           color: white;
         }
-
-        .red-text {
-        color: red;
-        }
-        .black-text {
-        color: black;
-        }
-
-        /* Las clases P, son utilizadas para identificar los distintos elementos y sus limites en base a su color de fondo, 
-           deberán ser eliminados al terminar la practica*/
-
-        .p1{
-          background-color:rgb(174, 223, 75);
-        }
-        .p2{
-          background-color:rgb(229, 212, 146);
-        }
-        .p3{
-          color:rgb(255, 0, 0);
-        }
-        .p4{
-          background-color:rgb(84, 207, 232);
-        }
-        .p5{
-          color:rgb(255, 225, 0);
-        }
-        .p6{
-          background-color:rgb(232, 84, 220);
-        }
-        .t1{
+        
+        .cabecera{
+          background-color: #103c5c;
+          color: white;
           text-align: center;
+          height: 3em;
         }
-   
-      </style> 
+        .celdaBrr{
+          width: 1em;
+        }
+  
+  
+      </style>
 
-    
+
 
 
       <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
       <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
       <script>
           
-        //Creando la tabla Inicial
-        var app = angular.module('Tabla_Dinamica', []);
+          //Creando la tabla Inicial
+          var app = angular.module('Tabla_Dinamica', []);
+          app.controller('TablaCtrl', ['$scope', function($scope) {
+            $scope.lista = [{
+              Actividad: 'Administración de la producción',
+              Puntaje: '0',
+            },];
 
 
-        app.controller('TablaCtrl', ['$scope', function($scope) {
-          $scope.lista1 = [{
-            Actividad: 'Administración de la producción',
-          },]
-          
+            //Eliminar
+            $scope.eliminar = function(index) {
+                if (confirm("¿Seguro que desea eliminar?")) {
+                $scope.lista.splice(index, 1);
+                }
+                };
 
-          //Eliminar
-          $scope.eliminar = function(index) {
-              if (confirm("¿Seguro que desea eliminar?")) {
-              $scope.lista1.splice(index, 1);
-              }
-              };
+            //Agregar
+            $scope.agregar = function() {
+                $scope.lista.push({
+                Actividad: '',
+                Puntaje: '',
+                })
+                };
 
-          //Agregar fila
-          $scope.agregarFila = function() {
-              $scope.lista1.push({
-              Actividad: '',
-              })
-              };
+            //Recuperar datos en un JSON
+            $scope.recuperarValores = function() {
+                console.log($scope.lista);
+                $("#JSON").text(JSON.stringify($scope.lista));
+                };
 
-          //Agregar Columna
-          $scope.agregarColumna = function() {
-            $scope.lista2.push({
-              Semana:'',
-          })
-          };
-
-
-          //Recuperar datos en un JSON
-          $scope.recuperarValores = function() {
-            console.log($scope.lista);
-            console.log($scope.semanas);
-            $("#JSON").text(JSON.stringify({ lista: $scope.lista, semanas: $scope.semanas }));
-          };
-
-        }]);
         
-          //Permite editar los campos    
-          app.directive('editableTd', [function() {
-              return {
-                restrict: 'A',
-                link: function(scope, element, attrs) {
-                  
-                    element.css("cursor", "pointer");
-                    element.attr('contenteditable', 'true');
-              
-                    element.bind('blur keyup change', function() {
-                    scope.lista[attrs.row][attrs.field] = element.text();
-                    });
-              
-                    element.bind('click', function() {
-                    document.execCommand('selectAll', false, null)
-                    });
-                    }
-                    };
-                    
-              }]);
 
-    </script>
+            //Suma de puntajes
+            $scope.sumav = function () {
+              var suma = 0;
+
+              for (var i = 0; i < $scope.lista.length; i++) {
+                  suma += parseFloat($scope.lista[i].Puntaje);
+                  }
+
+                  if (suma > 100) {
+                        $scope.mensaje = "Excedió los 100 puntos";
+                        $scope.mensajeClass = "red-text";  
+                    } else {
+                      $scope.mensaje = ""; 
+                      $scope.mensajeClass = "black-text";  
+                      return suma;
+                    }
+
+                  
+
+            };
+
+
+          }]);
+          
+            //Permite editar los campos    
+            app.directive('editableTd', [function() {
+                return {
+                  restrict: 'A',
+                  link: function(scope, element, attrs) {
+                    
+                      element.css("cursor", "pointer");
+                      element.attr('contenteditable', 'true');
+                
+                      element.bind('blur keyup change', function() {
+                      scope.lista[attrs.row][attrs.field] = element.text();
+                      });
+                
+                      element.bind('click', function() {
+                      document.execCommand('selectAll', false, null)
+                      });
+                      }
+                      };
+                      
+                }]);
+
+      </script>
     </head>
 
 
 
 
   
-   
-    <body ng-cloak ng-app="Tabla_Dinamica">
+  <body ng-cloak ng-app="Tabla_Dinamica">
     
-      <header>
-        <div class="navbar navbar-dark bg-dark shadow-sm">
-          <div class="container">
-            <a href="#" class="navbar-brand d-flex align-items-center">
-              <strong>BUAP</strong>
-            </a>
-          </div>
+    <header>
+      <div class="navbar navbar-dark bg-dark shadow-sm">
+        <div class="container">
+          <a href="#" class="navbar-brand d-flex align-items-center">
+            <strong>BUAP</strong>
+          </a>
         </div>
-      </header><br>
-        
-        
-        <div class="container" ng-controller="TablaCtrl">
-        <br>
-  
-          <div class="panel panel-default">
-            <div class="panel-body">
-  
-              
-                  <table class="table">
-  
-                      <thead>
-                  
-                        <tr>
-                        <th></th>
-                        <td colspan="3" class="">Semanas</td>
-                        </tr>
-  
-                        <tr>
-                          <th class="p0">Actividades</th>
-                          <th class="p0">semana 1</th>
-                          <th class="p0">semana 2</th>
-                          <th class="p3">PRUEBAS</th>
-                          
-  
-                        </tr>
-                      </thead>
-  
-  
-  
-                      <tbody class="p4">
-                        <tr ng-repeat="item in lista1">
-                          
-                          <td editable-td row="{{$index}}" field="Actividad">{{item.Actividad}}</td>
-                          <td class="p5">PRUEBAS</td>
-                          <td class="p5">PRUEBAS</td>
-                          <td><button class="btn1" style="cursor: pointer;" ng-click='eliminar($index)'>Borrar</button></td>
-  
-                        </tr>
-                      </tbody>
+      </div>
+    </header>
 
-                      
-  
-                  </table>
-  
-  
-  
-              <div class="p6">
-                <button class="btn1" ng-click='agregarFila()'>    Agregar fila</button>
-                <button class="btn1" ng-click='agregarColumna()'> Agregar Columna</button>
-              </div>
-  
-              <br>
-              <br>
-  
-              <div id='JSON'>
-              </div>
+    <br>
+      
+      
+      <div class="container" ng-controller="TablaCtrl">
+        <br>
+
+        <div class="panel panel-default">
+          <div class="panel-body">
+
+            
+            <table class="table">
+
+                <thead class="cabecera">
+                  <tr>
+                  
+                    <th></th>
+                    <th colspan="2">Semanas</th>
+                
+                    
+                  </tr>
+                  <tr>
+                  
+                    <th>Actividades</th>
+                    <th colspan="2"></th>
+                
+                    
+                  </tr>
+                </thead>
+
+              <tbody>
+                <tr ng-repeat="item in lista">
+                  
+                  
+                  <td editable-td row="{{$index}}" field="Actividad">
+                    {{item.Actividad}}
+                  </td>
+                  <td></td>
+                  
+                  <td class="celdaBrr">
+                    <button class="btn1" style="cursor: pointer;" ng-click='eliminar($index)'>Borrar</button>
+                  </td>
+                </tr>
+
+               
+
+            </tbody>
+          </table>
+
+
+
+            <div class="">
+              <button class="btn1" ng-click='agregar()'> Agregar fila</button>
+              <button type="button" class="btn1" ng-click='recuperarValores()'>Recuperar Valores</button>
+            </div>
+
+            <br>
+            <br>
+
+            <div id='JSON'>
             </div>
           </div>
         </div>
+      </div>
+  
+  
+      <footer class="text-muted py-5">
+        <div class="container">
+          <p class="float-end mb-1">
+            <a href="#"> Ir arriba</a>
+          </p>
+        </div>
+      </footer>
 
-    </body>
-</html>
+
+    
 
       
-      <!-- <!DOCTYPE html>
+  </body>
+</html>
+
+************************************************************************************************************************************************************************************************************************************************************************************************************************************
+<!DOCTYPE html>
       <html>
       <head>
           <style>
@@ -258,5 +267,5 @@
               }
           </script>
       </body>
-      </html>  -->
+      </html> 
       

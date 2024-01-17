@@ -1,238 +1,246 @@
-<!DOCTYPE html>
-<html lang="en">
-    <head>
-      <meta charset="utf-8">
-      <meta name="viewport" content="width=device-width, initial-scale=1">
-      <title>Tabla pruebas</title>
+  <!DOCTYPE html>
+  <html lang="en">
+      <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Dinamicas</title>
 
-      <!-- Bootstrap core CSS -->
-      <link rel="canonical" href="https://getbootstrap.com/docs/5.0/examples/album/">
-      <link href="../assets/dist/css/bootstrap.min.css" rel="stylesheet">
+        <!-- Bootstrap core CSS -->
+        <link rel="canonical" href="https://getbootstrap.com/docs/5.0/examples/album/">
+        <link href="../assets/dist/css/bootstrap.min.css" rel="stylesheet">
 
 
-      <style>
-        .table > tbody > tr:hover {
-          background-color: #F2F2F2;
-          cursor: pointer;
+        <style>
+          .table > tbody > tr:hover {
+            background-color: #F2F2F2;
+            cursor: pointer;
+            }
+
+          .btn1{
+            border-color: rgb(184, 186, 198);
+            border-radius: 3px;
+            }
+
+          .btn2{
+            background-color: rgba(0, 0, 0, 0.695);
+            color: white;
           }
 
-        .btn1{
-          border-color: rgb(184, 186, 198);
-          border-radius: 3px;
+          .red-text {
+          color: red;
           }
-
-        .btn2{
-          background-color: rgba(0, 0, 0, 0.695);
-          color: white;
-        }
-
-        .red-text {
-        color: red;
-        }
-        .black-text {
-        color: black;
-        }
-   
-      </style>
+          .black-text {
+          color: black;
+          }
+          .cabecera{
+            background-color: #103c5c;
+            color: white;
+            text-align: center;
+            height: 3em;
+          }
+    
+    
+        </style>
 
 
 
 
-      <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
-      <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-      <script>
-          
-          //Creando la tabla Inicial
-          var app = angular.module('Tabla_Dinamica', []);
-          app.controller('TablaCtrl', ['$scope', function($scope) {
-            $scope.lista = [{
-              Actividad: 'Administración de la producción',
-              Puntaje: '0',
-            },];
+        <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+        <script>
+            
+            //Creando la tabla Inicial
+            var app = angular.module('Tabla_Dinamica', []);
+            app.controller('TablaCtrl', ['$scope', function($scope) {
+              $scope.lista = [{
+                Actividad: 'Administración de la producción',
+                Puntaje: '0',
+              },];
 
 
-            //Eliminar
-            $scope.eliminar = function(index) {
-                if (confirm("¿Seguro que desea eliminar?")) {
-                $scope.lista.splice(index, 1);
-                }
-                };
-
-            //Agregar
-            $scope.agregar = function() {
-                $scope.lista.push({
-                Actividad: '',
-                Puntaje: '',
-                })
-                };
-
-            //Recuperar datos en un JSON
-            $scope.recuperarValores = function() {
-                console.log($scope.lista);
-                $("#JSON").text(JSON.stringify($scope.lista));
-                };
-
-        
-
-            //Suma de puntajes
-            $scope.sumav = function () {
-              var suma = 0;
-
-              for (var i = 0; i < $scope.lista.length; i++) {
-                  suma += parseFloat($scope.lista[i].Puntaje);
+              //Eliminar
+              $scope.eliminar = function(index) {
+                  if (confirm("¿Seguro que desea eliminar?")) {
+                  $scope.lista.splice(index, 1);
                   }
+                  };
 
-                  if (suma > 100) {
-                        $scope.mensaje = "Excedió los 100 puntos";
-                        $scope.mensajeClass = "red-text";  
-                    } else {
-                      $scope.mensaje = ""; 
-                      $scope.mensajeClass = "black-text";  
-                      return suma;
+              //Agregar
+              $scope.agregar = function() {
+                  $scope.lista.push({
+                  Actividad: '',
+                  Puntaje: '',
+                  })
+                  };
+
+              //Recuperar datos en un JSON
+              $scope.recuperarValores = function() {
+                  console.log($scope.lista);
+                  $("#JSON").text(JSON.stringify($scope.lista));
+                  };
+
+          
+
+              //Suma de puntajes
+              $scope.sumav = function () {
+                var suma = 0;
+
+                for (var i = 0; i < $scope.lista.length; i++) {
+                    suma += parseFloat($scope.lista[i].Puntaje);
                     }
 
-                   
-
-            };
-
-
-          }]);
-          
-            //Permite editar los campos    
-            app.directive('editableTd', [function() {
-                return {
-                  restrict: 'A',
-                  link: function(scope, element, attrs) {
-                    
-                      element.css("cursor", "pointer");
-                      element.attr('contenteditable', 'true');
-                
-                      element.bind('blur keyup change', function() {
-                      scope.lista[attrs.row][attrs.field] = element.text();
-                      });
-                
-                      element.bind('click', function() {
-                      document.execCommand('selectAll', false, null)
-                      });
+                    if (suma > 100) {
+                          $scope.mensaje = "Excedió los 100 puntos";
+                          $scope.mensajeClass = "red-text";  
+                      } else {
+                        $scope.mensaje = ""; 
+                        $scope.mensajeClass = "black-text";  
+                        return suma;
                       }
-                      };
-                      
-                }]);
 
-      </script>
-    </head>
+                    
+
+              };
 
 
-
-
-  
-  <body ng-cloak ng-app="Tabla_Dinamica">
-    
-    <header>
-      <div class="navbar navbar-dark bg-dark shadow-sm">
-        <div class="container">
-          <a href="#" class="navbar-brand d-flex align-items-center">
-            <strong>BUAP</strong>
-          </a>
-        </div>
-      </div>
-    </header>
-
-    <br>
-      
-      
-      <div class="container" ng-controller="TablaCtrl">
-        <br>
-
-        <div class="panel panel-default">
-          <div class="panel-body">
-
+            }]);
             
-            <table class="table">
+              //Permite editar los campos    
+              app.directive('editableTd', [function() {
+                  return {
+                    restrict: 'A',
+                    link: function(scope, element, attrs) {
+                      
+                        element.css("cursor", "pointer");
+                        element.attr('contenteditable', 'true');
+                  
+                        element.bind('blur keyup change', function() {
+                        scope.lista[attrs.row][attrs.field] = element.text();
+                        });
+                  
+                        element.bind('click', function() {
+                        document.execCommand('selectAll', false, null)
+                        });
+                        }
+                        };
+                        
+                  }]);
 
-                <thead>
-                  <tr>
-                    <th>#</th>
-                    <th>Actividad</th>
-                    <th>Puntaje</th>
-                    <th></th>
-                    <th></th>
+        </script>
+      </head>
+
+
+
+
+    
+    <body ng-cloak ng-app="Tabla_Dinamica">
+      
+      <header>
+        <div class="navbar navbar-dark bg-dark shadow-sm">
+          <div class="container">
+            <a href="#" class="navbar-brand d-flex align-items-center">
+              <strong>BUAP</strong>
+            </a>
+          </div>
+        </div>
+      </header>
+
+      <br>
+        
+        
+        <div class="container" ng-controller="TablaCtrl">
+          <br>
+
+          <div class="panel panel-default">
+            <div class="panel-body">
+
+              
+              <table class="table">
+
+                  <thead class="cabecera">
+                    <tr>
+                      <th><!--Aqui va el numero de actividad--></th>
+                      <th>Actividad</th>
+                      <th colspan="2">Puntaje</th>
+                      <th></th>
+                      
+                    </tr>
+                  </thead>
+
+                <tbody>
+                  <tr ng-repeat="item in lista">
+                    <!-- !<td style="cursor: not-allowed;">
+                      A{{$index + 1}}
+                    </td>-->
+                    <td></td>
+                    <td editable-td row="{{$index}}" field="Actividad">
+                      {{item.Actividad}}
+                    </td>
+                    <td editable-td row="{{$index}}" field="Puntaje">
+                      {{item.Puntaje}}
+                    </td>
+                    <td style="cursor: not-allowed;">
+                      {{}}%
+                    </td>
+                    <td>
+                      <button class="btn1" style="cursor: pointer;" ng-click='eliminar($index)'>Borrar</button>
+                    </td>
                   </tr>
+
+                  <thead>
+                    <tr>
+                      <th style="cursor: not-allowed;">
+                        {{}}
+                      </th>
+                      <th style="cursor: not-allowed;">
+                        TOTAL{{}}
+                      </th>
+                      <th style="cursor: not-allowed;" ng-class="mensajeClass">
+                      {{sumav()}}  {{mensaje}}
+                      </th>
+                      <th style="cursor: not-allowed;">
+                        {{}}%
+                      </th>
+                      <th>
+                        <button class="btn1 btn2" style="cursor: pointer;" ng-click='sumav($index)'>Sumar</button>
+                      </th>
+                    </tr>
                 </thead>
 
-              <tbody>
-                <tr ng-repeat="item in lista">
-                  <td style="cursor: not-allowed;">
-                    A{{$index + 1}}
-                  </td>
-                  <td editable-td row="{{$index}}" field="Actividad">
-                    {{item.Actividad}}
-                  </td>
-                  <td editable-td row="{{$index}}" field="Puntaje">
-                    {{item.Puntaje}}
-                  </td>
-                  <td style="cursor: not-allowed;">
-                    {{}}%
-                  </td>
-                  <td>
-                    <button class="btn1" style="cursor: pointer;" ng-click='eliminar($index)'>Borrar</button>
-                  </td>
-                </tr>
-
-                <thead>
-                  <tr>
-                    <th style="cursor: not-allowed;">
-                      {{}}
-                    </th>
-                    <th style="cursor: not-allowed;">
-                      TOTAL{{}}
-                    </th>
-                    <th style="cursor: not-allowed;" ng-class="mensajeClass">
-                    {{sumav()}}  {{mensaje}}
-                    </th>
-                    <th style="cursor: not-allowed;">
-                      {{}}%
-                    </th>
-                    <th>
-                      <button class="btn1 btn2" style="cursor: pointer;" ng-click='sumav($index)'>Sumar</button>
-                    </th>
-                  </tr>
-              </thead>
-
-            </tbody>
-          </table>
+              </tbody>
+            </table>
 
 
 
-            <div class="">
-              <button class="btn1" ng-click='agregar()'> Agregar fila</button>
-              <button type="button" class="btn1" ng-click='recuperarValores()'>Recuperar Valores</button>
-            </div>
+              <div class="">
+                <button class="btn1" ng-click='agregar()'> Agregar fila</button>
+                <button type="button" class="btn1" ng-click='recuperarValores()'>Recuperar Valores</button>
+              </div>
 
-            <br>
-            <br>
+              <br>
+              <br>
 
-            <div id='JSON'>
+              <div id='JSON'>
+              </div>
             </div>
           </div>
         </div>
-      </div>
-  
-   
-      <footer class="text-muted py-5">
-        <div class="container">
-          <p class="float-end mb-1">
-            <a href="#"> Ir arriba</a>
-          </p>
-        </div>
-      </footer>
-
-
     
+    
+        <footer class="text-muted py-5">
+          <div class="container">
+            <p class="float-end mb-1">
+              <a href="#"> Ir arriba</a>
+            </p>
+          </div>
+        </footer>
+
 
       
-  </body>
-</html>
+
+        
+    </body>
+  </html>
 
 
   
