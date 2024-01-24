@@ -48,10 +48,11 @@
           
           //Creando la tabla Inicial
           var app = angular.module('Tabla_Dinamica', []);
+          //Inicio del Controlador de la Tabla
           app.controller('TablaCtrl', ['$scope', function($scope) {
             $scope.lista = [{
               Actividad: 'Administración de la producción',
-              Puntaje: '0',
+              Nsemanas: '0',
             },];
 
 
@@ -66,7 +67,7 @@
             $scope.agregar = function() {
                 $scope.lista.push({
                 Actividad: '',
-                Puntaje: '',
+                Nsemanas: '',
                 })
                 };
 
@@ -76,31 +77,8 @@
                 $("#JSON").text(JSON.stringify($scope.lista));
                 };
 
-        
-
-            //Suma de puntajes
-            $scope.sumav = function () {
-              var suma = 0;
-
-              for (var i = 0; i < $scope.lista.length; i++) {
-                  suma += parseFloat($scope.lista[i].Puntaje);
-                  }
-
-                  if (suma > 100) {
-                        $scope.mensaje = "Excedió los 100 puntos";
-                        $scope.mensajeClass = "red-text";  
-                    } else {
-                      $scope.mensaje = ""; 
-                      $scope.mensajeClass = "black-text";  
-                      return suma;
-                    }
-
-                  
-
-            };
-
-
           }]);
+          //Final del Controlador de la Tabla
           
             //Permite editar los campos    
             app.directive('editableTd', [function() {
@@ -132,81 +110,82 @@
   
   <body ng-cloak ng-app="Tabla_Dinamica">
     
-    <header>
-      <div class="navbar navbar-dark bg-dark shadow-sm">
-        <div class="container">
-          <a href="#" class="navbar-brand d-flex align-items-center">
-            <strong>BUAP</strong>
-          </a>
-        </div>
-      </div>
-    </header>
-
-    <br>
-      
-      
-      <div class="container" ng-controller="TablaCtrl">
+        <header>
+            <div class="navbar navbar-dark bg-dark shadow-sm">
+              <div class="container">
+              <a href="#" class="navbar-brand d-flex align-items-center">
+              <strong>BUAP</strong>
+              </a>
+              </div>
+            </div>
+        </header>
         <br>
+      
+      <!--Aqui empieza la estructura de la tabla-->   
+      <div class="container" ng-controller="TablaCtrl">
+      <br>
 
-        <div class="panel panel-default">
-          <div class="panel-body">
+          <div class="panel panel-default">
+              <div class="panel-body">
+                   <!--Aqui empieza la tabla-->   
+                   <table class="table">
 
-            
-            <table class="table">
 
-                <thead class="cabecera">
-                  <tr>
-                  
-                    <th></th>
-                    <th colspan="2">Semanas</th>
+
+                      <!--Aqui empieza la Cabecera de la Tabla-->  
+                      <thead class="cabecera">
+                          <tr>
+                            <th></th>
+                            <th colspan="2">Semanas</th>
+                          </tr>
+
+                          <tr>
+                            <th>Actividades</th>
+                            <th colspan="2"></th>
+                          </tr>
+                      </thead>
+                      <!--Aqui termina la Cabecera de la Tabla--> 
+
+
+                    <!--Aqui empieza el Cuerpo de la Tabla--> 
+                      <tbody>
+                        <tr ng-repeat="item in lista">
+                          <td editable-td row="{{$index}}" field="Actividad">
+                            {{item.Actividad}}
+                          </td>
+
+                          <!--Esta es la coluna de "semanas" por defecto--> 
+                          <td></td>
+                          
+                          <td class="celdaBrr">
+                            <button class="btn1" style="cursor: pointer;" ng-click='eliminar($index)'>Borrar</button>
+                          </td>
+                        </tr>
+                    </tbody>
+                    <!--Aqui termina el Cuerpo de la Tabla--> 
+
+                    </table>
+                    <!--Aqui termina la tabla-->   
+
+
+
+                  <div class="">
+                    <button class="btn1" ng-click='agregar()'> Agregar fila</button>
+                    <button type="button" class="btn1" ng-click='recuperarValores()'>Recuperar Valores</button>
+                  </div>
+
+                  <br>
+                  <br>
+
+                  <div id='JSON'></div>
+
                 
-                    
-                  </tr>
-                  <tr>
-                  
-                    <th>Actividades</th>
-                    <th colspan="2"></th>
-                
-                    
-                  </tr>
-                </thead>
-
-              <tbody>
-                <tr ng-repeat="item in lista">
-                  
-                  
-                  <td editable-td row="{{$index}}" field="Actividad">
-                    {{item.Actividad}}
-                  </td>
-                  <td></td>
-                  
-                  <td class="celdaBrr">
-                    <button class="btn1" style="cursor: pointer;" ng-click='eliminar($index)'>Borrar</button>
-                  </td>
-                </tr>
-
-               
-
-            </tbody>
-          </table>
-
-
-
-            <div class="">
-              <button class="btn1" ng-click='agregar()'> Agregar fila</button>
-              <button type="button" class="btn1" ng-click='recuperarValores()'>Recuperar Valores</button>
-            </div>
-
-            <br>
-            <br>
-
-            <div id='JSON'>
-            </div>
+              </div>
           </div>
-        </div>
       </div>
   
   
+      <!--Aqui termina la estructura de la tabla-->
       <footer class="text-muted py-5">
         <div class="container">
           <p class="float-end mb-1">
