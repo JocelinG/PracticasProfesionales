@@ -50,11 +50,14 @@
           var app = angular.module('Tabla_Dinamica', []);
           //Inicio del Controlador de la Tabla
           app.controller('TablaCtrl', ['$scope', function($scope) {
-            $scope.lista = [{
-              Actividad: 'Administración de la producción',
-              Nsemanas: '0',
-            },];
+            $scope.lista = [
+                {
+                  Actividad: 'Administración de la producción',
+                  Nsemanas: 'Aqui es la primera columna',  
+                },
+              ];
 
+            $scope.columnas = ['Nsemanas'];
 
             //Eliminar
             $scope.eliminar = function(index) {
@@ -63,12 +66,18 @@
                 }
                 };
 
-            //Agregar
+            //Agregar Fila
             $scope.agregar = function() {
                 $scope.lista.push({
                 Actividad: '',
                 Nsemanas: '',
                 })
+                };
+
+            //Agregar Columna
+            $scope.agregarColumna = function() {
+                var nuevaColumna = $scope.columnas.length + 1;
+                $scope.columnas.push(nuevaColumna.toString());
                 };
 
             //Recuperar datos en un JSON
@@ -154,13 +163,20 @@
                             {{item.Actividad}}
                           </td>
 
-                          <!--Esta es la coluna de "semanas" por defecto--> 
-                          <td></td>
-                          
+                          <td ng-repeat="columna in columnas">
+                            <td editable-td row="{{$index}}" field="{{columna}}">
+                                {{item[columna]}}
+                            </td>
+                        </td>
+                      
+
                           <td class="celdaBrr">
                             <button class="btn1" style="cursor: pointer;" ng-click='eliminar($index)'>Borrar</button>
                           </td>
                         </tr>
+                      
+                        
+                        
                     </tbody>
                     <!--Aqui termina el Cuerpo de la Tabla--> 
 
@@ -170,7 +186,8 @@
 
 
                   <div class="">
-                    <button class="btn1" ng-click='agregar()'> Agregar fila</button>
+                    <button class="btn1" ng-click='agregar()'>  Agregar Fila</button>
+                    <button class="btn1" ng-click='agregarColumna()'>Agregar Columna</button>
                     <button type="button" class="btn1" ng-click='recuperarValores()'>Recuperar Valores</button>
                   </div>
 
