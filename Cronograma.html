@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+ <html lang="en">
+    <head>
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1">
+      <title>Dinamicas</title>
+
+      <!-- Bootstrap core CSS -->
+      <link rel="canonical" href="https://getbootstrap.com/docs/5.0/examples/album/">
+      <link href="../assets/dist/css/bootstrap.min.css" rel="stylesheet">
+
+
+        <style>
+            .table > tbody > tr:hover {
+                background-color: #F2F2F2;
+                cursor: pointer;
+            }
+
+            .btn1 {
+                border-color: rgb(184, 186, 198);
+                border-radius: 3px;
+            }
+
+            .btn2 {
+                background-color: rgba(0, 0, 0, 0.695);
+                color: white;
+            }
+
+            .cabecera {
+                background-color: #103c5c;
+                color: white;
+                text-align: center;
+                height: 3em;
+            }
+
+            .celdaBrr {
+                width: 1em;
+            }
+
+
+            .celdaTintable {
+                cursor: pointer;
+            }
+        </style>
+
+
+
+
+
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+
+        //Creando la tabla Inicial
+        var app = angular.module('Tabla_Dinamica', []);
+        //Inicio del Controlador de la Tabla
+        app.controller('TablaCtrl', ['$scope', function ($scope) {
+            $scope.lista = [
+                {
+                    Actividad: 'Administración de la producción',
+                    Nsemanas: '',
+                },
+            ];
+
+            $scope.columnas = ['Nsemanas'];
+
+            //Eliminar
+            $scope.eliminar = function (index) {
+                if (confirm("¿Seguro que desea eliminar?")) {
+                    $scope.lista.splice(index, 1);
+                }
+                };
+
+            //Agregar Fila
+            $scope.agregar = function () {
+                $scope.lista.push({
+                    Actividad: '',
+                    Nsemanas: '',
+                });
+                };
+
+            //Agregar Columna
+            $scope.agregarColumna = function () {
+                var nuevaColumna = $scope.columnas.length + 1;
+                $scope.columnas.push(nuevaColumna.toString());
+                };
+
+            //Recuperar datos en un JSON
+            $scope.recuperarValores = function () {
+                console.log($scope.lista);
+                $("#JSON").text(JSON.stringify($scope.lista));
+            };
+
+            //Tintado de celdas
+            $scope.tintarCelda = function (row, column) {
+                var cell = $scope.lista[row][$scope.columnas[column]];
+                if (cell === 'gris') {
+                    $scope.lista[row][$scope.columnas[column]] = '';
+                } else {
+                    $scope.lista[row][$scope.columnas[column]] = 'gris';
+                }
+                };
+            }]);
+            //Final del Controlador de la Tabla
+
+
+
+             //Permite editar los campos    
+            app.directive('editableTd', [function () {
+                return {
+                 restrict: 'A',
+                 link: function (scope, element, attrs) {
+
+                        element.css("cursor", "pointer");
+                        element.attr('contenteditable', 'true');
+
+                        element.bind('blur keyup change', function () {
+                        scope.lista[attrs.row][attrs.field] = element.text();
+                        });
+
+                        element.bind('click', function () {
+                        document.execCommand('selectAll', false, null);
+                        });
+                        }
+                        };
+                 }]);
+    </script>
+    </head>
+
+
+
+
+    <body ng-cloak ng-app="Tabla_Dinamica">
+        
+        <header>
+            <div class="navbar navbar-dark bg-dark shadow-sm">
+              <div class="container">
+              <a href="#" class="navbar-brand d-flex align-items-center">
+              <strong>BUAP</strong>
+              </a>
+              </div>
+            </div>
+        </header>
+        <br>
+
+
+         <!--Aqui empieza la estructura de la tabla-->   
+        <div class="container" ng-controller="TablaCtrl">
+        <br>
+
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    <!--Aqui empieza la tabla-->   
+                    <table class="table">
+
+
+
+                         <!--Aqui empieza la Cabecera de la Tabla-->  
+                        <thead class="cabecera">
+                            <tr>
+                              <th></th>
+                              <th colspan="100">Semanas</th>
+                            </tr>
+
+
+                            <tr>
+                              <th>Actividades</th>
+                              <th ng-repeat="columna in columnas" style="cursor: not-allowed;">{{$index + 1}}</th>
+                              <td></td>
+                            </tr>
+                        </thead>
+                        <!--Aqui termina la Cabecera de la Tabla--> 
+
+
+                        <!--Aqui empieza el Cuerpo de la Tabla-->   
+                        <tbody>
+                            <tr ng-repeat="item in lista">
+                                <!--Filas de la tabla--> 
+                                <td editable-td row="{{$index}}" field="Actividad">{{item.Actividad}}</td>
+                                <!--Columnas de la tabla--> 
+                                <td ng-repeat="columna in columnas" class="celdaTintable" ng-click="tintarCelda($parent.$index, $index)"
+                                    ng-style="{'background-color': item[columna] === 'gris' ? 'gray' : ''}"> 
+                                </td>
+                                <!--Columna de "Borrar"--> 
+                                <td class="celdaBrr"><button class="btn1" ng-click='eliminar($index)'>Borrar</button></td>
+                            </tr>
+
+
+                    </tbody>
+                     <!--Aqui termina el Cuerpo de la Tabla--> 
+                    </table>
+                    <!--Aqui termina la tabla-->   
+
+
+
+
+                    <div class="">
+                      <button class="btn1" ng-click='agregar()'>Agregar Fila</button>
+                      <button class="btn1" ng-click='agregarColumna()'>Agregar Columna</button>
+                      <button type="button" class="btn1" ng-click='recuperarValores()'>Recuperar Valores</button>
+                    </div>
+
+                    <br>
+                    <br>
+
+                    <div id='JSON'></div>
+
+
+                </div>
+            </div>
+        </div>
+        <!--Aqui termina la estructura de la tabla-->
+
+
+
+         <!--Aqui empieza el pie de página-->
+        <footer class="text-muted py-5">
+            <div class="container">
+                <p class="float-end mb-1">
+                <a href="#">Ir arriba</a>
+                </p>
+            </div>
+        </footer>
+        <!--Aqui termina el pie de página-->
+
+    </body>
+</html>
+  

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+ <html lang="en">
     <head>
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -53,7 +53,7 @@
             $scope.lista = [
                 {
                   Actividad: 'Administración de la producción',
-                  Nsemanas: 'Aqui es la primera columna',  
+                  Nsemanas: '',  
                 },
               ];
 
@@ -111,6 +111,9 @@
                 }]);
 
       </script>
+
+
+  
     </head>
 
 
@@ -145,12 +148,14 @@
                       <thead class="cabecera">
                           <tr>
                             <th></th>
-                            <th colspan="2">Semanas</th>
+                            <th colspan="100">Semanas</th>
+                            
                           </tr>
 
                           <tr>
                             <th>Actividades</th>
-                            <th colspan="2"></th>
+                            <th ng-repeat="columna in columnas" style="cursor: not-allowed;"> {{$index + 1}}</th>
+                            <td></td>
                           </tr>
                       </thead>
                       <!--Aqui termina la Cabecera de la Tabla--> 
@@ -159,20 +164,13 @@
                     <!--Aqui empieza el Cuerpo de la Tabla--> 
                       <tbody>
                         <tr ng-repeat="item in lista">
-                          <td editable-td row="{{$index}}" field="Actividad">
-                            {{item.Actividad}}
-                          </td>
-
-                          <td ng-repeat="columna in columnas">
-                            <td editable-td row="{{$index}}" field="{{columna}}">
-                                {{item[columna]}}
-                            </td>
-                        </td>
-                      
-
-                          <td class="celdaBrr">
-                            <button class="btn1" style="cursor: pointer;" ng-click='eliminar($index)'>Borrar</button>
-                          </td>
+                           
+                          <!--Filas de la tabla--> 
+                          <td editable-td row="{{$index}}" field="Actividad">{{item.Actividad}}</td>
+                          <!--Columnas de la tabla--> 
+                          <td ng-repeat="columna in columnas">gris</td>
+                          <!--Columna de "Borrar"--> 
+                          <td class="celdaBrr"> <button class="btn1" style="cursor: pointer;" ng-click='eliminar($index)'>Borrar</button> </td>
                         </tr>
                       
                         
@@ -217,9 +215,8 @@
       
   </body>
 </html>
-
-************************************************************************************************************************************************************************************************************************************************************************************************************************************
-<!DOCTYPE html>
+********************************************************CODIGO PARA PINTAR CELDAS***************************************************************************************************************************************************************************
+<!DOCTYPE html> 
       <html>
       <head>
           <style>
@@ -230,7 +227,7 @@
        
           <table>
               <tr>
-                  <td></td>
+                  <td></td> 
                   <td></td>
                   <td></td>
                   <td></td>
