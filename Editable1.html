@@ -7,6 +7,7 @@
     <!-- Bootstrap core CSS -->
     <link rel="canonical" href="https://getbootstrap.com/docs/5.0/examples/album/">
     <link href="../assets/dist/css/bootstrap.min.css" rel="stylesheet">
+
     <style>
         .btn1 {
             border-radius: 3px;
@@ -15,16 +16,23 @@
             height: 2em;
             text-align: center;
         }
+        .btnIMG{
+            
+            margin-top: 38em;
+            margin-left: 30em;
+        }
+
 
         .formatos {
             height: 2em;
             width: 10em;
+            margin-left: 8em;
         }
 
         .margen1 {
             position: absolute;
             top: 27%;
-            left: 45%;
+            left: 47%;
             transform: translate(-50%, -50%);
         }
 
@@ -118,22 +126,27 @@
     <br>
 
     <section class="opciones margen1">
-        <button class="btn1" onclick="toggleBold()">Negrita</button>
-        <button class="btn1" onclick="toggleItalic()">Itálica</button>
-        <button class="btn1" onclick="toggleList('ul')">Viñetas</button>
-        <button class="btn1" onclick="toggleList('ol')">Lista</button>
+            <button class="btn1" onclick="toggleBold()">Negrita</button>
+            <button class="btn1" onclick="toggleItalic()">Itálica</button>
+            <button class="btn1" onclick="toggleList('ul')">Viñetas</button>
+            <button class="btn1" onclick="toggleList('ol')">Lista</button>
 
-        <select class="formatos margen2 margen1" onchange="applyFormat(this.value)">
-            <option selected>Formato</option>
-            <option value="h2">Subtítulo 01</option>
-            <option value="h3">Subtítulo 02</option>
-            <option value="P">Texto general </option>
-        </select>
+
+            <select class="formatos margen2 margen1" onchange="applyFormat(this.value)">
+                <option selected>Formato</option>
+                <option value="h2">Subtítulo 01</option>
+                <option value="h3">Subtítulo 02</option>
+                <option value="P">Texto general </option>
+            </select>
+
     </section>
+
 
     <div id="textBox" contenteditable="true" class="Cajatxt">
         <p>Escribir aquí...</p>
     </div>
+    <input type="file" id="imageInput" class="btnIMG" onchange="loadImage()" accept="image/*" value = "Cargar Imagen">
+
       </div>
 
     <footer class="text-muted py-5">
@@ -155,28 +168,43 @@
           text = text.replace(/<[^>]*>/g, '');
           //Pega un texto limpio
           document.execCommand('insertText', false, text);
-      });
+          });
+      
 
-      function toggleBold() {
-          document.execCommand('bold', false, null);
-      }
+        function toggleBold() {
+            document.execCommand('bold', false, null);
+        }
 
-      function toggleItalic() {
-          document.execCommand('italic', false, null);
-      }
+        function toggleItalic() {
+            document.execCommand('italic', false, null);
+        }
 
-      function toggleList(type) {
-          if (type === 'ul') {
-              document.execCommand('insertUnorderedList', false, null);
-          } else if (type === 'ol') {
-              document.execCommand('insertOrderedList', false, null);
-          }
-      }
+        function toggleList(type) {
+            if (type === 'ul') {
+                document.execCommand('insertUnorderedList', false, null);
+            } else if (type === 'ol') {
+                document.execCommand('insertOrderedList', false, null);
+            }
+        }
 
-      function applyFormat(format) {
-          document.execCommand('formatblock', false, format);
-      }
-    </script>∫
+        function applyFormat(format) {
+            document.execCommand('formatblock', false, format);
+        }
+
+        function loadImage() {
+                var input = document.getElementById('imageInput');
+                if (input.files && input.files[0]) {
+                    var reader = new FileReader();
+                    reader.onload = function (e) {
+                        var img = document.createElement('img');
+                        img.src = e.target.result;
+                        document.getElementById('textBox').appendChild(img);
+                    };
+                    reader.readAsDataURL(input.files[0]);
+                }
+        }
+
+    </script>
     </body>
 
 </html>
